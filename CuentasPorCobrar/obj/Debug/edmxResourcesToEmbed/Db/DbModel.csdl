@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="INF244Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LimiteCredito" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Transaccions" Relationship="Self.FK_Transaccion_Cliente" FromRole="Cliente" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoDocumento">
+    <Key>
+      <PropertyRef Name="IdTipoDocumento" />
+    </Key>
+    <Property Name="IdTipoDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Transaccions" Relationship="Self.FK_Transaccion_TipoDocumento" FromRole="TipoDocumento" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="TipoTransaccion">
+    <Key>
+      <PropertyRef Name="IdTipoTransaccion" />
+    </Key>
+    <Property Name="IdTipoTransaccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Transaccions" Relationship="Self.FK_Transaccion_TipoTransaccion" FromRole="TipoTransaccion" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="Transaccion">
+    <Key>
+      <PropertyRef Name="IdTransaccion" />
+    </Key>
+    <Property Name="IdTransaccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTipoTransaccion" Type="Int32" Nullable="false" />
+    <Property Name="IdTipoDocumento" Type="Int32" Nullable="false" />
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="NumeroDocumento" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Monto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Transaccion_Cliente" FromRole="Transaccion" ToRole="Cliente" />
+    <NavigationProperty Name="TipoDocumento" Relationship="Self.FK_Transaccion_TipoDocumento" FromRole="Transaccion" ToRole="TipoDocumento" />
+    <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK_Transaccion_TipoTransaccion" FromRole="Transaccion" ToRole="TipoTransaccion" />
+  </EntityType>
+  <Association Name="FK_Transaccion_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaccion_TipoDocumento">
+    <End Role="TipoDocumento" Type="Self.TipoDocumento" Multiplicity="1" />
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoDocumento">
+        <PropertyRef Name="IdTipoDocumento" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="IdTipoDocumento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaccion_TipoTransaccion">
+    <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoTransaccion">
+        <PropertyRef Name="IdTipoTransaccion" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="IdTipoTransaccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="INF244Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TipoDocumentoes" EntityType="Self.TipoDocumento" />
+    <EntitySet Name="TipoTransaccions" EntityType="Self.TipoTransaccion" />
+    <EntitySet Name="Transaccions" EntityType="Self.Transaccion" />
+    <AssociationSet Name="FK_Transaccion_Cliente" Association="Self.FK_Transaccion_Cliente">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Transaccion" EntitySet="Transaccions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_TipoDocumento" Association="Self.FK_Transaccion_TipoDocumento">
+      <End Role="TipoDocumento" EntitySet="TipoDocumentoes" />
+      <End Role="Transaccion" EntitySet="Transaccions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_TipoTransaccion" Association="Self.FK_Transaccion_TipoTransaccion">
+      <End Role="TipoTransaccion" EntitySet="TipoTransaccions" />
+      <End Role="Transaccion" EntitySet="Transaccions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

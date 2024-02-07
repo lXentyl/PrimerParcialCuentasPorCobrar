@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CuentasPorCobrar.Db.Transaccion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Transacciones</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva transacción", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Numero de documento
+            @*@Html.DisplayNameFor(model => model.NumeroDocumento)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </th>
+        <th>
+            Tipo de documento
+            @*@Html.DisplayNameFor(model => model.TipoDocumento.Descripcion)*@
+        </th>
+        <th>
+            Tipo de transacción
+            @*@Html.DisplayNameFor(model => model.TipoTransaccion.Descripcion)*@
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroDocumento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoDocumento.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoTransaccion.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdTransaccion }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.IdTransaccion }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.IdTransaccion })
+        </td>
+    </tr>
+}
+
+</table>

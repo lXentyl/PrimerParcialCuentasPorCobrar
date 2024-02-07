@@ -1,0 +1,76 @@
+﻿@model CuentasPorCobrar.Db.Transaccion
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Borrar</h2>
+
+<h3>¿Seguro que desea borrar este registro?</h3>
+<div>
+    <h4>Transaccion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Número de documento
+            @*@Html.DisplayNameFor(model => model.NumeroDocumento)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroDocumento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monto)
+        </dd>
+
+        <dt>
+            Cliente
+            @*@Html.DisplayNameFor(model => model.Cliente.Nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+
+        <dt>
+            Tipo de documento
+            @*@Html.DisplayNameFor(model => model.TipoDocumento.Descripcion)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDocumento.Descripcion)
+        </dd>
+
+        <dt>
+            Tipo de transacción
+            @*@Html.DisplayNameFor(model => model.TipoTransaccion.Descripcion)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoTransaccion.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,70 @@
+﻿@model CuentasPorCobrar.Db.Transaccion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Transaccion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Número de documento
+            @*@Html.DisplayNameFor(model => model.NumeroDocumento)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroDocumento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monto)
+        </dd>
+
+        <dt>
+            Cliente
+            @*@Html.DisplayNameFor(model => model.Cliente.Nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+
+        <dt>
+            Tipo de documento
+            @*@Html.DisplayNameFor(model => model.TipoDocumento.Descripcion)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDocumento.Descripcion)
+        </dd>
+
+        <dt>
+            Tipo de transacción
+            @*@Html.DisplayNameFor(model => model.TipoTransaccion.Descripcion)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoTransaccion.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdTransaccion }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>
